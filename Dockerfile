@@ -28,7 +28,7 @@ RUN chmod 0644 php-redis-admin
 
 WORKDIR /var/www/html
 COPY . php-redis-admin/
-RUN mkdir php-redis-admin/logs && chown -R www-data:www-data php-redis-admin/logs
+RUN chown -R www-data:www-data php-redis-admin/var/log
 
 WORKDIR /var/www/html/php-redis-admin
 RUN php composer.phar install
