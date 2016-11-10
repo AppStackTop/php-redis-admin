@@ -5,7 +5,7 @@ EXPOSE 80
 ENV PHPREDIS_VERSION 2.2.8
 
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update -yqq && apt-get install -yqq --no-install-recommends \
         cron \
         gearman-job-server \
         git-core \
@@ -18,9 +18,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && pecl install redis-$PHPREDIS_VERSION \
     && docker-php-ext-enable redis
 
-COPY docker/default.conf /etc/apache2/sites-available/000-default.conf
-COPY docker/php.ini /usr/local/etc/php/
-COPY docker/start.sh /usr/src/start.sh
+ADD docker/default.conf /etc/apache2/sites-available/000-default.conf
+ADD docker/php.ini /usr/local/etc/php/
+ADD docker/start.sh /usr/src/start.sh
 
 WORKDIR /etc/cron.d
 COPY docker/crontab php-redis-admin
